@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.UI;
 
 public class PlayerLight : MonoBehaviour
 {
+    Slider slider;
+
     [SerializeField] float maxInnerRaduis = 2f;
     [SerializeField] float minInnerRaduis = 0.5f;
     [SerializeField] float maxOuterRaduis = 5f;
@@ -24,6 +27,9 @@ public class PlayerLight : MonoBehaviour
 
     void Start()
     {
+        slider = FindObjectOfType<Slider>();
+        slider.minValue = minIntensity;
+        slider.maxValue = maxIntensity;
         playerLight = GetComponentInChildren<Light2D>();
     }
 
@@ -35,6 +41,7 @@ public class PlayerLight : MonoBehaviour
 
     void LightDecay()
     {
+        slider.value = currentIntensity;
         playerLight.intensity = currentIntensity;
         playerLight.pointLightOuterRadius = curretOuterRaduis;
         playerLight.pointLightInnerRadius = currentInnerRaduis;
@@ -45,5 +52,12 @@ public class PlayerLight : MonoBehaviour
         if (curretOuterRaduis > minOuterRaduis)
             curretOuterRaduis -= raduisDecay * Time.deltaTime;
 
+    }
+
+    public void AddLight(float lightValue)
+    {
+        currentIntensity += lightValue;
+        currentInnerRaduis += lightValue;
+        curretOuterRaduis += lightValue;
     }
 }

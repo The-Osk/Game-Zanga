@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -59,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
         bool playerHorzizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         if (playerHorzizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(myRigidBody.velocity.x), 1);
+            transform.localScale = new Vector2(Mathf.Sign(myRigidBody.velocity.x),1);
         }
     }
 
