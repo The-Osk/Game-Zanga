@@ -26,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
         myCollider = GetComponent<CapsuleCollider2D>();
         feetCollider = GetComponentInChildren<BoxCollider2D>();
         gravityAtStart = myRigidBody.gravityScale;
+        myAnimator = GetComponent<Animator>();
 
     }
 
@@ -45,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         Vector2 playerVelocity = new Vector2(controlThrow * movementSpeed, myRigidBody.velocity.y);
         myRigidBody.velocity = playerVelocity;
         bool playerHorzizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
+        myAnimator.SetBool("isWalking", playerHorzizontalSpeed);
     }
 
     void Jump() {
@@ -60,7 +62,7 @@ public class PlayerMovement : MonoBehaviour
         bool playerHorzizontalSpeed = Mathf.Abs(myRigidBody.velocity.x) > Mathf.Epsilon;
         if (playerHorzizontalSpeed)
         {
-            transform.localScale = new Vector2(Mathf.Sign(myRigidBody.velocity.x),1);
+            transform.localScale = new Vector2(Mathf.Sign(myRigidBody.velocity.x) * Mathf.Abs(transform.localScale.x), transform.localScale.y);
         }
     }
 

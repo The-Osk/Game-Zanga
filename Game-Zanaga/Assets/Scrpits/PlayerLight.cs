@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class PlayerLight : MonoBehaviour
 {
     Slider slider;
+    [SerializeField] Sprite bigFire;
+    [SerializeField] Sprite noFire;
 
     [SerializeField] float maxInnerRaduis = 2f;
     [SerializeField] float minInnerRaduis = 0.5f;
@@ -23,10 +25,15 @@ public class PlayerLight : MonoBehaviour
     [SerializeField] float raduisDecay = 0.1f;
 
     Light2D playerLight;
+    GameObject lanternObject;
+    Image lantern;
 
 
     void Start()
     {
+        lanternObject = GameObject.FindGameObjectWithTag("LanternUI");
+        lantern = lanternObject.GetComponent<Image>();
+
         slider = FindObjectOfType<Slider>();
         slider.minValue = minIntensity;
         slider.maxValue = maxIntensity;
@@ -36,6 +43,7 @@ public class PlayerLight : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        UpdateUI();
         LightDecay();
     }
 
@@ -52,6 +60,19 @@ public class PlayerLight : MonoBehaviour
         if (curretOuterRaduis > minOuterRaduis)
             curretOuterRaduis -= raduisDecay * Time.deltaTime;
 
+    }
+
+    void UpdateUI()
+    {
+        slider.value = currentIntensity;
+        if (currentIntensity < minIntensity + 0.2f)
+        {
+            lantern.sprite = noFire;
+        }
+        else if(currentIntensity > minIntensity + 0.2f)
+        {
+            lantern.sprite = bigFire;
+        }
     }
 
     public void AddLight(float lightValue)

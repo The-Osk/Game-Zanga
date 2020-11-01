@@ -7,6 +7,7 @@ TagManager:
   - Player_BottomTrigger
   - Player_Blue
   - Player_Pink
+  - LanternUI
   layers:
   - Default
   - TransparentFX
@@ -49,6 +50,9 @@ TagManager:
     locked: 0
   - name: Foreplayer
     uniqueID: 871960893
+    locked: 0
+  - name: Door
+    uniqueID: 3466592405
     locked: 0
   - name: Player
     uniqueID: 3713903045
