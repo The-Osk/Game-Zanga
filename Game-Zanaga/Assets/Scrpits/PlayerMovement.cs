@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [SerializeField] AudioClip deathSFX;
 
     [SerializeField] float movementSpeed = 5f;
     [SerializeField] float jumpSpeed = 5f;
@@ -70,10 +71,19 @@ public class PlayerMovement : MonoBehaviour
     {
         if (myCollider.IsTouchingLayers(LayerMask.GetMask("Enemy", "Hazards")))
         {
-           // myAnimator.SetTrigger("Die");
-            GetComponent<Rigidbody2D>().velocity = deathKick;
+            myAnimator.SetTrigger("die");
+            //GetComponent<Rigidbody2D>().velocity = deathKick;
             isAlive = false;
+            AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
+            StartCoroutine(ReloadAfterDeath()); 
             //FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
+    }
+
+
+    IEnumerator ReloadAfterDeath()
+    {
+        yield return new WaitForSeconds(2f);
+        FindObjectOfType<GameManger>().ReloadLevel();
     }
 }
