@@ -7,7 +7,7 @@ public class GameManger : MonoBehaviour
 {
     void Awake()
     {
-        if (FindObjectsOfType<GameManger>().Length > 1)
+        if (FindObjectsOfType<GameManger>().Length > 1  && SceneManager.sceneCount -1 > SceneManager.GetActiveScene().buildIndex)
             Destroy(gameObject); 
         else DontDestroyOnLoad(gameObject);
     }

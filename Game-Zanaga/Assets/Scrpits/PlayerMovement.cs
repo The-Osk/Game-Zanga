@@ -86,4 +86,16 @@ public class PlayerMovement : MonoBehaviour
         yield return new WaitForSeconds(2f);
         FindObjectOfType<GameManger>().ReloadLevel();
     }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Platform")
+            this.transform.parent = col.transform;
+    }
+
+    void OnCollisionExit2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Platform")
+            this.transform.parent = null;
+    }
 }
